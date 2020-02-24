@@ -32,9 +32,14 @@
 \usepackage{indentfirst}   %Indents first paragraphs in every section.
 
 %% Flush footnotes to the left
-\usepackage[hang,flushmargin]{footmisc}
-%% Places footnotes immediately below horizontal rule
+\usepackage[marginal,ragged]{footmisc}
+%% Places footnotes immediately below horizontal rule and aligned at the left-margin
 \setlength{\footnotesep}{0pt}
+\setlength{\footnotemargin}{.8em}
+
+% Renew footnote command to add parskip (double-space between footnotes
+\let\oldfootnote\footnote
+\renewcommand{\footnote}[1]{\oldfootnote{#1\vspace{\baselineskip}}}
 
 %% Normal LaTeX or pdfLaTeX? %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{ifpdf}
@@ -140,11 +145,23 @@
 \chapter{Chapter 2}
 \input{chapter2.tex}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% APPENDICES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\chapter{}
+\section{}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY AND OTHER LISTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \backmatter
+
+% Edit bibliography to make sure it's since-spaced within entry and
+% double-spaced across entries
+\setlength{\bibsep}{\baselineskip}
+\setstretch{1}
 
 % Bibliography
 \bibliography{dissertation}
@@ -152,12 +169,5 @@
 
 % Add bibliography to contents page
 %\addcontentsline{toc}{chapter}{Bibliography} %'Bibliography' into toc
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% APPENDICES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix
-\chapter{}
-\section{}
 
 \end{document}
